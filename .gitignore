@@ -1,0 +1,4 @@
+# Crea el archivo
+touch .gitignore
+# Abre .gitignore y añade la línea:
+# node_modules/

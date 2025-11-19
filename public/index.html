@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Tareas</title>
+</head>
+<body>
+    <h1>Mis Tareas</h1>
+    
+    <input type="text" id="inputTarea" placeholder="Nueva tarea...">
+    <button onclick="agregarTarea()">Agregar</button>
+
+    <ul id="listaTareas"></ul>
+
+    <script>
+        // Esta es la lógica del navegador (Frontend)
+        
+        // 1. Función para mostrar tareas
+        async function cargarTareas() {
+            const respuesta = await fetch('/api/tareas');
+            const tareas = await respuesta.json();
+            const lista = document.getElementById('listaTareas');
+            lista.innerHTML = ''; // Limpiar lista
+
+            tareas.forEach(tarea => {
+                const li = document.createElement('li');
+                li.textContent = tarea.texto;
+                lista.appendChild(li);
+            });
+        }
+
+        // 2. Función para enviar una nueva tarea al servidor
+        async function agregarTarea() {
+            const input = document.getElementById('inputTarea');
+            const texto = input.value;
+
+            await fetch('/api/tareas', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ texto: texto })
+            });
+
+            input.value = ''; // Limpiar input
+            cargarTareas(); // Recargar la lista
+        }
+
+        // Cargar al iniciar
+        cargarTareas();
+    </script>
+</body>
+</html>
