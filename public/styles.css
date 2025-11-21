@@ -1,0 +1,73 @@
+/* ----------------------------------- */
+/* Estilos Globales y Base */
+/* ----------------------------------- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinea al inicio, no al centro vertical */
+    padding: 40px;
+    margin: 0;
+    min-height: 100vh;
+}
+
+#app-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #5cb85c; /* Color verde que da un toque de diseño */
+    padding-bottom: 10px;
+}
+
+/* ----------------------------------- */
+/* Estilos de Formulario y Tareas */
+/* ----------------------------------- */
+input[type="text"] {
+    width: calc(100% - 70px); /* 100% menos el botón */
+    padding: 10px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Importante para que el padding no desborde el ancho */
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #5cb85c;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+#listaTareas {
+    list-style: none; /* Quita los puntos del ul */
+    padding: 0;
+    margin-top: 20px;
+}
+
+#listaTareas li {
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}

@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Mis Tareas</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <h1>Mis Tareas</h1>
-    
-    <input type="text" id="inputTarea" placeholder="Nueva tarea...">
-    <button onclick="agregarTarea()">Agregar</button>
 
-    <ul id="listaTareas"></ul>
+<body>
+
+    <div id="app-container">
+        <h1>Mis Tareas</h1>
+
+        <input type="text" id="inputTarea" placeholder="Nueva tarea...">
+        <button onclick="agregarTarea()">Agregar</button>
+
+        <ul id="listaTareas"></ul>
+    </div>
 
     <script>
         // Esta es la lógica del navegador (Frontend)
-        
+
         // 1. Función para mostrar tareas
         async function cargarTareas() {
             const respuesta = await fetch('/api/tareas');
@@ -24,7 +30,17 @@
 
             tareas.forEach(tarea => {
                 const li = document.createElement('li');
-                li.textContent = tarea.texto;
+                // Mostrar la tarea (y tacharla si está completada)
+                li.innerHTML = `
+                    <span style="text-decoration: ${tarea.completada ? 'line-through' : 'none'};">
+                        ${tarea.texto}
+                    </span>
+                    <button 
+                        onclick="marcarCompletada(${tarea.id})" 
+                        style="background-color: ${tarea.completada ? '#dc3545' : '#17a2b8'};">
+                        ${tarea.completada ? 'Deshacer' : 'Hecho'}
+                    </button>
+                `;
                 lista.appendChild(li);
             });
         }
@@ -44,8 +60,17 @@
             cargarTareas(); // Recargar la lista
         }
 
+        // Función que envía el ID de la tarea a marcar/desmarcar
+        async function marcarCompletada(id) {
+            await fetch(`/api/tareas/${id}`, {
+                method: 'PUT' // Usamos el método PUT para actualizar
+            });
+            cargarTareas(); // Recargar la lista para ver el cambio
+        }
+
         // Cargar al iniciar
         cargarTareas();
     </script>
 </body>
+
 </html>
